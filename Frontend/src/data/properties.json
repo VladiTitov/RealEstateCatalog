@@ -1,34 +1,43 @@
 [
     {
         "Id":1,
+        "SellRent": 1,
         "Name": "Birla House",
         "Type":"House",
-        "Price":1200
+        "Price":1200,
+        "Image": "img-1"
 
     },
     {
         "Id":2,
+        "SellRent": 2,
         "Name": "Single Stack",
         "Type":"House",
-        "Price":1400
+        "Price":1400,
+        "Image": "img-2"
 
     },
     {
         "Id":3,
+        "SellRent": 1,
         "Name": "Four Walls",
         "Type":"House",
-        "Price":1670
+        "Price":1670,
+        "Image": "img-3"
 
     },
     {
         "Id":4,
+        "SellRent": 1,
         "Name": "New Tiles",
         "Type":"House",
-        "Price":1510
+        "Price":1510,
+        "Image": "img-4"
 
     },
     {
         "Id":5,
+        "SellRent": 1,
         "Name": "Blue Windows",
         "Type":"House",
         "Price":2100
@@ -36,8 +45,10 @@
     },
     {
         "Id":6,
+        "SellRent": 1,
         "Name": "Double Doors",
         "Type":"House",
-        "Price":1000
+        "Price":1000,
+        "Image": "img-6"
     }
 ]
