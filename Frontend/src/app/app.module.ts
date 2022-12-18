@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 import { PropertyCardComponent } from './property/property-card/property-card.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PropertyListComponent } from './property/property-list/property-list.component';
-import { HousingService } from './services/housing.service';
 import { AddPropertyComponent } from './property/add-property/add-property.component';
 import { PropertyDatailComponent } from './property/property-detail/property-datail.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import { UserRegisterComponent } from './user/user-register/user-register.component';
+
+import { HousingService } from './services/housing.service';
+import { UserService } from './services/user.service';
 
 const appRoutes: Routes = [
   { path: '', component: PropertyListComponent },
@@ -44,7 +46,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    HousingService
+    HousingService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
