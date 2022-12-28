@@ -8,6 +8,6 @@ export interface IPropertyBase {
   BHK: number;
   BuildArea: number;
   City: string;
-  RTM: number;
+  ReadyToMove: number;
   Image?: string;
 }
