@@ -17,6 +17,15 @@ export class HousingService {
       map(data => {
         const array = data as Array<IPropertyBase>;
         const propertiesArray: Array<IPropertyBase> = [];
+        const localProperties = JSON.parse(localStorage.getItem('newProp')!);
+        if (localProperties) {
+          for (const id in localProperties) {
+            if (localProperties.hasOwnProperty(id) && localProperties[id].SellRent === SellRent){
+              propertiesArray.push(localProperties[id]);
+            }
+          }
+        }
+
         for (const id in array) {
           if (array.hasOwnProperty(id) && array[id].SellRent === SellRent){
             propertiesArray.push(array[id]);
@@ -28,6 +37,23 @@ export class HousingService {
   }
 
   addProperty(property: Property) {
-    localStorage.setItem('newProp', JSON.stringify(property));
+    let newProp = [property];
+
+    if (localStorage.getItem('newProp')) {
+      newProp = [property,
+        ...JSON.parse(localStorage.getItem('newProp')!)];
+    }
+
+    localStorage.setItem('newProp', JSON.stringify(newProp));
+  }
+
+  newPropID() {
+    if (localStorage.getItem('PID')) {
+      localStorage.setItem('PID', String(+localStorage.getItem('PID')! + 1));
+      return +localStorage.getItem('PID')!;
+    } else {
+      localStorage.setItem('PID', '101');
+      return 101;
+    }
   }
 }
