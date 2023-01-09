@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { IPropertyBase } from 'src/app/model/IPropertyBase.Interface';
+import { ICity } from 'src/app/model/ICity.Interface';
 import { Property } from 'src/app/model/Property';
 import { HousingService } from 'src/app/services/housing.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
@@ -35,7 +36,7 @@ export class AddPropertyComponent implements OnInit {
   propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex'];
   furnishTypes: Array<string> = ['Fully', 'Semi', 'Unfurnished'];
   moveTypes: Array<string> = ['East', 'West', 'South', 'North'];
-  cityList: Array<string>;
+  cityList: Array<ICity>;
 
   constructor(
     private fb: FormBuilder,
