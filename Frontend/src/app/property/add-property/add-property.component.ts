@@ -34,7 +34,8 @@ export class AddPropertyComponent implements OnInit {
 
   propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex'];
   furnishTypes: Array<string> = ['Fully', 'Semi', 'Unfurnished'];
-  moveTypes: Array<string> = ['East', 'West', 'South', 'North']
+  moveTypes: Array<string> = ['East', 'West', 'South', 'North'];
+  cityList: Array<string>;
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +45,10 @@ export class AddPropertyComponent implements OnInit {
 
   ngOnInit() {
     this.CreateAddPropertyForm();
+    this.housingService.getAllCities().subscribe(data => {
+      this.cityList = data;
+      console.log(data);
+    });
   }
 
   CreateAddPropertyForm() {
