@@ -9,6 +9,26 @@ internal static class CityEndpoints
             handler: CityEndpointsHandlers.GetAllAsync)
             .WithName("GetAllCities");
 
+        app.MapGet(
+            pattern: "api/city/{id}",
+            handler: CityEndpointsHandlers.GetByIdAsync)
+            .WithName("GetByIdAsync");
+
+        app.MapPut(
+            pattern: "api/city",
+            handler: CityEndpointsHandlers.UpdateAsync)
+            .WithName("UpdateAsync");
+
+        app.MapPost(
+            pattern: "api/city",
+            handler: CityEndpointsHandlers.CreateAsync)
+            .WithName("CreateAsync");
+
+        app.MapDelete(
+            pattern: "api/city/{id}",
+            handler: CityEndpointsHandlers.DeleteAsync)
+            .WithName("DeleteAsync");
+
         return app;
     }
 }
