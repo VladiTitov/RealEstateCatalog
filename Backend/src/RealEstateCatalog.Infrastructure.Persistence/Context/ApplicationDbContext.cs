@@ -9,4 +9,10 @@ public class ApplicationDbContext : DbContext
 	{
 		
 	}
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<City>().Property(i=>i.Id).UseIdentityAlwaysColumn();
+        base.OnModelCreating(modelBuilder);
+    }
 }
