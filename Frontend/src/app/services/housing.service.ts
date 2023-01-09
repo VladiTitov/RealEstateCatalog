@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs';
+import { ICity } from '../model/ICity.Interface';
 import { IPropertyBase } from '../model/IPropertyBase.Interface';
 import { Property } from '../model/Property';
 
@@ -12,8 +13,8 @@ export class HousingService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCities() : Observable<string[]>{
-    return this.http.get<string[]>('http://localhost:5000/api/city');
+  getAllCities() : Observable<ICity[]>{
+    return this.http.get<ICity[]>('http://localhost:5000/api/city');
   }
 
   getProperty(id: number) {
