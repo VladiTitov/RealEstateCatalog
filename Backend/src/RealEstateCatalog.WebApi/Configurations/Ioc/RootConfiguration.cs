@@ -1,6 +1,7 @@
 ﻿using RealEstateCatalog.Infrastructure.Persistence;
 using RealEstateCatalog.WebApi.Configurations.Cors;
 using RealEstateCatalog.WebApi.Configurations.Swagger;
+using System.Reflection;
 
 namespace RealEstateCatalog.WebApi.Configurations.Ioc;
 
@@ -10,6 +11,7 @@ internal static class RootConfiguration
     {
         return services
             .AddPersistenceLayer(configuration)
+            .AddAutoMapper(Assembly.GetExecutingAssembly())
             .AddSwaggerConfiguration()
             .AddCorsConfiguration();
     }

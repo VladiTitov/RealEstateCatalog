@@ -1,6 +1,7 @@
 using RealEstateCatalog.Core.Domain.Models;
 using RealEstateCatalog.Core.Application.Interfaces;
 using RealEstateCatalog.Core.Domain.Dtos;
+using AutoMapper;
 
 namespace RealEstateCatalog.WebApi.Endpoints;
 
@@ -8,38 +9,33 @@ internal static class CityEndpointsHandlers
 {
     internal static async Task<IResult> GetAllAsync(
         ICityRepository cityRepository,
+        IMapper mapper,
         CancellationToken cancellationToken = default)
     {
         var response = await cityRepository.GetAllAsync(cancellationToken);
-        if (response is null || !response.Any()) return Results.NoContent();
-        var resultData = new List<CityDto>();
-        foreach (var cityDto in response) 
-        {
-            resultData.Add(new CityDto
-            {
-                Id = cityDto.Id,
-                Name = cityDto.Name
-            });
-        }
 
-        return Results.Ok(resultData);
+        return response is null || !response.Any()
+            ? Results.NoContent()
+            : Results.Ok(mapper.Map<IReadOnlyList<CityDto>>(response));
     }
 
     internal static async Task<IResult> GetByIdAsync(
         int id,
         ICityRepository cityRepository,
+        IMapper mapper,
         CancellationToken cancellationToken = default)
     {
         var response = await cityRepository.GetByIdAsync(id, cancellationToken);
 
         return response is null
             ? Results.NoContent()
-            : Results.Ok(response);
+            : Results.Ok(mapper.Map<CityDto>(response));
     }
 
     internal static async Task<IResult> CreateAsync(
         string cityName,
         ICityRepository cityRepository,
+        IMapper mapper,
         CancellationToken cancellationToken = default)
     {
         var city = new City { 
@@ -49,13 +45,9 @@ internal static class CityEndpointsHandlers
         };
 
         var response = await cityRepository.CreateAsync(city, cancellationToken);
-        if (response is null) return Results.BadRequest();
-        var resultData = new CityDto 
-        { 
-            Id = response.Id, 
-            Name = response.Name 
-        };
-        return Results.Created($"api/city/{resultData.Id}", resultData);
+        return response is null
+            ? Results.BadRequest()
+            : Results.Created($"api/city/{response.Id}", mapper.Map<CityDto>(response));
     }
 
     internal static async Task<IResult> UpdateAsync(
