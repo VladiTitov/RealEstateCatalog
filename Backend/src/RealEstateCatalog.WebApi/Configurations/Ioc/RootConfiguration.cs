@@ -1,5 +1,6 @@
 ﻿using RealEstateCatalog.Infrastructure.Persistence;
 using RealEstateCatalog.WebApi.Configurations.Cors;
+using RealEstateCatalog.WebApi.Configurations.Middlewares;
 using RealEstateCatalog.WebApi.Configurations.Swagger;
 using System.Reflection;
 
@@ -26,6 +27,7 @@ internal static class RootConfiguration
         application.UseCorsConfiguration();
         application.UseHttpsRedirection();
         application.MapCityEnpoints();
+        application.UseErrorHandlingMiddleware();
         return application;
     }
 }
