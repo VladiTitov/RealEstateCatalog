@@ -27,6 +27,7 @@ internal static class RootConfiguration
         application.UseCorsConfiguration();
         application.UseHttpsRedirection();
         application.MapCityEnpoints();
+        application.MapUserEnpoints();
         application.UseErrorHandlingMiddleware();
         return application;
     }

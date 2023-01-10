@@ -8,11 +8,11 @@ namespace RealEstateCatalog.WebApi.Endpoints;
 internal static class CityEndpointsHandlers
 {
     internal static async Task<IResult> GetAllAsync(
-        ICityRepository cityRepository,
         IMapper mapper,
+        IUnitOfWork unitOfWork,
         CancellationToken cancellationToken = default)
     {
-        var response = await cityRepository.GetAllAsync(cancellationToken);
+        var response = await unitOfWork.CityRepository.GetAllAsync(cancellationToken);
 
         return response is null || !response.Any()
             ? Results.NoContent()
@@ -21,11 +21,11 @@ internal static class CityEndpointsHandlers
 
     internal static async Task<IResult> GetByIdAsync(
         int id,
-        ICityRepository cityRepository,
         IMapper mapper,
+        IUnitOfWork unitOfWork,
         CancellationToken cancellationToken = default)
     {
-        var response = await cityRepository.GetByIdAsync(id, cancellationToken);
+        var response = await unitOfWork.CityRepository.GetByIdAsync(id, cancellationToken);
 
         return response is null
             ? Results.NoContent()
@@ -34,8 +34,8 @@ internal static class CityEndpointsHandlers
 
     internal static async Task<IResult> CreateAsync(
         string cityName,
-        ICityRepository cityRepository,
         IMapper mapper,
+        IUnitOfWork unitOfWork,
         CancellationToken cancellationToken = default)
     {
         var city = new City { 
@@ -44,7 +44,8 @@ internal static class CityEndpointsHandlers
             LastUpdatedOn = DateTime.Now
         };
 
-        var response = await cityRepository.CreateAsync(city, cancellationToken);
+        var response = unitOfWork.CityRepository.Create(city);
+        await unitOfWork.SaveAsync(cancellationToken);
         return response is null
             ? Results.BadRequest()
             : Results.Created($"api/city/{response.Id}", mapper.Map<CityDto>(response));
@@ -52,24 +53,26 @@ internal static class CityEndpointsHandlers
 
     internal static async Task<IResult> UpdateAsync(
         CityDto city,
-        ICityRepository cityRepository,
+        IUnitOfWork unitOfWork,
         CancellationToken cancellationToken = default)
     {
-        var entity = await cityRepository.GetByIdAsync(city.Id, cancellationToken);
+        var entity = await unitOfWork.CityRepository.GetByIdAsync(city.Id, cancellationToken);
         if (entity is null) return Results.NotFound();
-        await cityRepository.UpdateAsync(entity, cancellationToken);
+        unitOfWork.CityRepository.Update(entity);
+        await unitOfWork.SaveAsync(cancellationToken);
         return Results.Ok();
     }
 
     internal static async Task<IResult> DeleteAsync(
         int id,
-        ICityRepository cityRepository,
+        IUnitOfWork unitOfWork,
         CancellationToken cancellationToken = default)
     {
-        var entity = await cityRepository.GetByIdAsync(id, cancellationToken);
+        var entity = await unitOfWork.CityRepository.GetByIdAsync(id, cancellationToken);
         if (entity is null) return Results.NotFound();
 
-        await cityRepository.DeleteAsync(entity, cancellationToken);
+        unitOfWork.CityRepository.Delete(entity);
+        await unitOfWork.SaveAsync(cancellationToken);
         return Results.NoContent();
     }
 }

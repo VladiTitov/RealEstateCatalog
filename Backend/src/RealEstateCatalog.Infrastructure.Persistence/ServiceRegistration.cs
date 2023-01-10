@@ -11,7 +11,7 @@ public static class ServiceRegistration
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         var connectionString = configuration.GetConnectionString(nameof(ApplicationDbContext));
         return services
-            .AddScoped<ICityRepository, CityRepository>()
+            .AddScoped<IUnitOfWork, UnitOfWork>()
             .AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(connectionString));
     }
 }
