@@ -1,4 +1,5 @@
 ﻿using RealEstateCatalog.Infrastructure.Persistence;
+using RealEstateCatalog.WebApi.Configurations.Authentification;
 using RealEstateCatalog.WebApi.Configurations.Cors;
 using RealEstateCatalog.WebApi.Configurations.Middlewares;
 using RealEstateCatalog.WebApi.Configurations.Swagger;
@@ -14,7 +15,9 @@ internal static class RootConfiguration
             .AddPersistenceLayer(configuration)
             .AddAutoMapper(Assembly.GetExecutingAssembly())
             .AddSwaggerConfiguration()
-            .AddCorsConfiguration();
+            .AddCorsConfiguration()
+            .AddCustomAuthentification()
+            .AddAuthorization();
     }
 
     internal static WebApplication ConfigureWebApplication(this WebApplication application)
@@ -26,6 +29,8 @@ internal static class RootConfiguration
         }
         application.UseCorsConfiguration();
         application.UseHttpsRedirection();
+        application.UseAuthentication();
+        application.UseAuthorization();
         application.MapCityEnpoints();
         application.MapUserEnpoints();
         application.UseErrorHandlingMiddleware();
