@@ -15,23 +15,19 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     public async Task<TEntity?> GetByIdAsync(int id, CancellationToken cancellationToken)
         => await _dbContext.Set<TEntity>().FirstOrDefaultAsync(i => i.Id.Equals(id), cancellationToken);
 
-    public async Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken)
+    public TEntity Create(TEntity entity)
     {
         _dbContext.Set<TEntity>().Add(entity);
-        await _dbContext.SaveChangesAsync(cancellationToken);
         return entity;
     }
 
-    public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)
+    public void Update(TEntity entity)
     {
         _dbContext.Entry(entity).State = EntityState.Modified;
-        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken)
+    public void Delete(TEntity entity)
     {
         _dbContext.Set<TEntity>().Remove(entity);
-        await _dbContext.SaveChangesAsync(cancellationToken);
-
     }
 }
