@@ -1,4 +1,5 @@
-﻿using RealEstateCatalog.Infrastructure.Persistence;
+﻿using RealEstateCatalog.Core.Application;
+using RealEstateCatalog.Infrastructure.Persistence;
 using RealEstateCatalog.WebApi.Configurations.Authentification;
 using RealEstateCatalog.WebApi.Configurations.Cors;
 using RealEstateCatalog.WebApi.Configurations.Middlewares;
@@ -12,11 +13,12 @@ internal static class RootConfiguration
     internal static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
         return services
+            .AddApplicationLayer()
             .AddPersistenceLayer(configuration)
             .AddAutoMapper(Assembly.GetExecutingAssembly())
             .AddSwaggerConfiguration()
             .AddCorsConfiguration()
-            .AddCustomAuthentification()
+            .AddCustomAuthentification(configuration)
             .AddAuthorization();
     }
 
