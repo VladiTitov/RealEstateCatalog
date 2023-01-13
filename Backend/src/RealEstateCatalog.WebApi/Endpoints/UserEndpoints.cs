@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace RealEstateCatalog.WebApi.Endpoints;
+﻿namespace RealEstateCatalog.WebApi.Endpoints;
 
 internal static class UserEndpoints
 {
@@ -8,22 +6,14 @@ internal static class UserEndpoints
     {
         app.MapPost(
             pattern: "api/account/login",
-            handler: LoginAsync)
+            handler: UserEndpointsHandlers.LoginAsync)
             .WithName("Login");
 
-        return app;
-    }
+        app.MapPost(
+            pattern: "api/account/register",
+            handler: UserEndpointsHandlers.RegisterAsync)
+            .WithName("Register");
 
-    private static async Task<IResult> LoginAsync(
-        LoginRequestDto loginRequestDto, 
-        IMapper mapper,
-        IUnitOfWork unitOfWork,
-        IAuthenticationService authenticationService,
-        CancellationToken cancellationToken = default)
-    {
-        var user = await unitOfWork.UserRepository.AuthenticateAsync(loginRequestDto, cancellationToken);
-        return user is null
-            ? Results.Unauthorized()
-            : Results.Ok(authenticationService.GetLoginRequest(user));
+        return app;
     }
 }

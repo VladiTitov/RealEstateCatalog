@@ -1,6 +1,3 @@
-using RealEstateCatalog.Core.Domain.Models;
-using RealEstateCatalog.Core.Application.Interfaces;
-using RealEstateCatalog.Core.Domain.Dtos;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 
