@@ -1,4 +1,5 @@
 ﻿using RealEstateCatalog.WebApi.Errors;
+using RealEstateCatalog.WebApi.Exceptions;
 using System.Net;
 
 namespace RealEstateCatalog.WebApi.Middlewares;
@@ -32,7 +33,10 @@ internal class ErrorHandlerMiddleware
 
             switch (error) 
 			{
-				case UnauthorizedAccessException:
+				case UnauthorizedException:
+					httpStatusCode = HttpStatusCode.Unauthorized;
+					break;
+                case UnauthorizedAccessException:
 					httpStatusCode = HttpStatusCode.Forbidden;
 					message = "You are not authorized";
 					break;

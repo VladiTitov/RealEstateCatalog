@@ -9,6 +9,9 @@ public class ApiError
     public string ErrorMessage { get; set; }
     public string ErrorDetails { get; set; }
 
+    public ApiError()
+    { }
+
     public ApiError(int errorCode, string errorMessage, string errorDetails = null)
     {
         ErrorCode = errorCode;
@@ -18,6 +21,10 @@ public class ApiError
 
     public override string ToString()
     {
-        return JsonSerializer.Serialize(this);
+        var options = new JsonSerializerOptions()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+        return JsonSerializer.Serialize(this, options);
     }
 }
