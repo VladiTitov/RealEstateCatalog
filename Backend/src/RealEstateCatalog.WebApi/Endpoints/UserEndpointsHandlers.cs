@@ -1,4 +1,8 @@
-﻿namespace RealEstateCatalog.WebApi.Endpoints;
+﻿using System.Net;
+using RealEstateCatalog.WebApi.Errors;
+using RealEstateCatalog.WebApi.Exceptions;
+
+namespace RealEstateCatalog.WebApi.Endpoints;
 
 internal static class UserEndpointsHandlers
 {
@@ -10,7 +14,7 @@ internal static class UserEndpointsHandlers
     {
         var user = await unitOfWork.UserRepository.AuthenticateAsync(loginRequestDto, cancellationToken);
         return user is null
-            ? Results.Unauthorized()
+            ? throw new UnauthorizedException("Invalid Username or Password.")
             : Results.Ok(authenticationService.GetLoginRequest(user));
     }
 
@@ -20,8 +24,10 @@ internal static class UserEndpointsHandlers
         CancellationToken cancellationToken = default)
     {
         if (await unitOfWork.UserRepository.UserAlreadyExistsAsync(loginRequestDto.Username, cancellationToken))
-            return Results.BadRequest("User already exists, please try something else.");
-
+        {
+            var apiError = new ApiError((int)HttpStatusCode.BadRequest, "User already exists, please try something else.");
+            return Results.BadRequest(apiError);
+        }
         unitOfWork.UserRepository.Register(loginRequestDto);
         await unitOfWork.SaveAsync(cancellationToken);
         return Results.Ok();

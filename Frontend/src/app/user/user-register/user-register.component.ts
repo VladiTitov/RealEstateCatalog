@@ -67,9 +67,6 @@ createRegistrationForm(){
       this.authService.registerUser(this.userData()).subscribe(()=>{
         this.onReset();
         this.alertify.onSuccess('Congrats, you are successfully registered.');
-      }, error => {
-        console.log(error);
-        this.alertify.onError(error.error);
       });
     }
   }
