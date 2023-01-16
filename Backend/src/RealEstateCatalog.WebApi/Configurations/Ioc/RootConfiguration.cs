@@ -4,6 +4,7 @@ using RealEstateCatalog.WebApi.Configurations.Authentification;
 using RealEstateCatalog.WebApi.Configurations.Cors;
 using RealEstateCatalog.WebApi.Configurations.Middlewares;
 using RealEstateCatalog.WebApi.Configurations.Swagger;
+using RealEstateCatalog.WebApi.Configurations.Validations;
 using System.Reflection;
 
 namespace RealEstateCatalog.WebApi.Configurations.Ioc;
@@ -18,6 +19,7 @@ internal static class RootConfiguration
             .AddAutoMapper(Assembly.GetExecutingAssembly())
             .AddSwaggerConfiguration()
             .AddCorsConfiguration()
+            .AddValidationsConfiguration()
             .AddCustomAuthentification(configuration)
             .AddAuthorization();
     }

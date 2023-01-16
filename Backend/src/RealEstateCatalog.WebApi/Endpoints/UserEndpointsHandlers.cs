@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using FluentValidation;
 using RealEstateCatalog.WebApi.Errors;
 using RealEstateCatalog.WebApi.Exceptions;
 
@@ -8,10 +9,17 @@ internal static class UserEndpointsHandlers
 {
     internal static async Task<IResult> LoginAsync(
         LoginRequestDto loginRequestDto,
+        IValidator<LoginRequestDto> validator,
         IUnitOfWork unitOfWork,
         IAuthenticationService authenticationService,
         CancellationToken cancellationToken = default)
     {
+        var validationResult = await validator.ValidateAsync(loginRequestDto, cancellationToken);
+        if (!validationResult.IsValid)
+        {
+            return Results.ValidationProblem(validationResult.ToDictionary());
+        }
+        
         var user = await unitOfWork.UserRepository.AuthenticateAsync(loginRequestDto, cancellationToken);
         return user is null
             ? throw new UnauthorizedException("Invalid Username or Password.")
