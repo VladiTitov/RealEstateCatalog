@@ -1,7 +1,7 @@
 ﻿namespace RealEstateCatalog.Core.Domain.Models;
 
 #nullable disable
-public class City : BaseEntity
+public class PropertyType : BaseEntity
 {
     public string Name { get; set; }
 }
