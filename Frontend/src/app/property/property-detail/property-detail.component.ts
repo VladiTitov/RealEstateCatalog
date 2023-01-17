@@ -7,8 +7,8 @@ import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 
 @Component({
   selector: 'app-property-datail',
-  templateUrl: './property-datail.component.html',
-  styleUrls: ['./property-datail.component.css']
+  templateUrl: './property-detail.component.html',
+  styleUrls: ['./property-detail.component.css']
 })
 
 export class PropertyDatailComponent implements OnInit {

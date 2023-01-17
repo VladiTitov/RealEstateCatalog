@@ -21,16 +21,16 @@ export class AddPropertyComponent implements OnInit {
   property = new Property();
 
   propertyView : IPropertyBase = {
-    Id: 0,
-    SellRent: 0,
-    Name: '',
-    PType: '',
-    FType: '',
-    BHK: 0,
-    BuildArea: 0,
-    City: '',
-    ReadyToMove: 0,
-    Price: 0
+    id: 0,
+    sellRent: 0,
+    name: '',
+    propertyType: '',
+    furnishingType: '',
+    bhk: 0,
+    buildArea: 0,
+    city: '',
+    readyToMove: 0,
+    price: 0
   };
 
   propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex'];
@@ -218,23 +218,23 @@ export class AddPropertyComponent implements OnInit {
   }
 
   mapProperty(): void {
-    this.property.Id = this.housingService.newPropID();
-    this.property.SellRent = +this.SellRent.value;
-    this.property.BHK = this.BHK.value;
-    this.property.PType = this.PType.value;
-    this.property.Name = this.Name.value;
-    this.property.City = this.City.value;
-    this.property.FType = this.FType.value;
-    this.property.Price = this.Price.value;
+    this.property.id = this.housingService.newPropID();
+    this.property.sellRent = +this.SellRent.value;
+    this.property.bhk = this.BHK.value;
+    this.property.propertyType = this.PType.value;
+    this.property.name = this.Name.value;
+    this.property.city = this.City.value;
+    this.property.furnishingType = this.FType.value;
+    this.property.price = this.Price.value;
     this.property.Security = this.Security.value;
     this.property.Maintenance = this.Maintenance.value;
-    this.property.BuildArea = this.BuildArea.value;
+    this.property.buildArea = this.BuildArea.value;
     this.property.CarpetArea = this.CarpetArea.value;
     this.property.FloorNo = this.FloorNo.value;
     this.property.TotalFloor = this.TotalFloor.value;
     this.property.Address = this.Address.value;
     this.property.Address2 = this.LandMark.value;
-    this.property.ReadyToMove = this.RTM.value;
+    this.property.readyToMove = this.RTM.value;
     this.property.AOP = this.AOP.value;
     this.property.Gated = this.Gated.value;
     this.property.MainEntrance = this.MainEntrance.value;

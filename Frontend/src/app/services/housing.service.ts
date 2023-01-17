@@ -3,57 +3,32 @@ import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { ICity } from '../model/ICity.Interface';
-import { IPropertyBase } from '../model/IPropertyBase.Interface';
 import { Property } from '../model/Property';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HousingService {
 
+  baseUrl = environment.baseUrl;
+
   constructor(private http: HttpClient) { }
 
   getAllCities() : Observable<ICity[]>{
-    return this.http.get<ICity[]>('http://localhost:5000/api/city');
+    return this.http.get<ICity[]>(this.baseUrl + '/api/city');
   }
 
   getProperty(id: number) {
-    return this.getAllProperties().pipe(
+    return this.getAllProperties(1).pipe(
       map(propertiesArray => {
-        return propertiesArray.find(i=>i.Id === id)!;
+        return propertiesArray.find(i=>i.id === id)!;
       })
     );
   }
 
   getAllProperties(SellRent?: number) : Observable<Property[]> {
-    return this.http.get('data/properties.json').pipe(
-      map(data => {
-        const array = data as Array<Property>;
-        const propertiesArray: Array<Property> = [];
-        const localProperties = JSON.parse(localStorage.getItem('newProp')!);
-        if (localProperties) {
-          for (const id in localProperties) {
-            if (SellRent) {
-              if (localProperties.hasOwnProperty(id) && localProperties[id].SellRent === SellRent){
-                propertiesArray.push(localProperties[id]);
-              }
-            } else {
-              propertiesArray.push(localProperties[id]);
-            }
-          }
-        }
-        for (const id in array) {
-          if (SellRent) {
-            if (array.hasOwnProperty(id) && array[id].SellRent === SellRent){
-              propertiesArray.push(array[id]);
-            }
-          } else {
-            propertiesArray.push(array[id]);
-          }
-        }
-        return propertiesArray;
-      })
-    );
+    return this.http.get<Property[]>(this.baseUrl + '/property/type/' + SellRent?.toString());
   }
 
   addProperty(property: Property) {
