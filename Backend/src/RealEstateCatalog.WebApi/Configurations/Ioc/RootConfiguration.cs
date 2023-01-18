@@ -37,6 +37,7 @@ internal static class RootConfiguration
         application.UseAuthorization();
         application.MapCityEnpoints();
         application.MapUserEnpoints();
+        application.MapPropertyEnpoints();
         application.UseErrorHandlingMiddleware();
         return application;
     }

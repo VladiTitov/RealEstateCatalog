@@ -14,7 +14,7 @@ import { PropertyCardComponent } from './property/property-card/property-card.co
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PropertyListComponent } from './property/property-list/property-list.component';
 import { AddPropertyComponent } from './property/add-property/add-property.component';
-import { PropertyDatailComponent } from './property/property-detail/property-datail.component';
+import { PropertyDatailComponent } from './property/property-detail/property-detail.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import { UserRegisterComponent } from './user/user-register/user-register.component';
 
