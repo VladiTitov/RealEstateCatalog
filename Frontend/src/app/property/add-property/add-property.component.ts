@@ -30,7 +30,8 @@ export class AddPropertyComponent implements OnInit {
     buildArea: 0,
     city: '',
     readyToMove: 0,
-    price: 0
+    price: 0,
+    estPossessionOn: new Date
   };
 
   propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex'];
