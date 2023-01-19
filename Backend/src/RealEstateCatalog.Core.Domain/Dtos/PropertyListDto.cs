@@ -13,4 +13,5 @@ public class PropertyListDto
     public int BuildArea { get; set; }
     public string City { get; set; }
     public bool ReadyToMove { get; set; }
+    public DateTime EstPossessionOn { get; set; }
 }

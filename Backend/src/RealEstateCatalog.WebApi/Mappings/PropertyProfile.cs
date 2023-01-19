@@ -16,7 +16,8 @@ public class PropertyProfile : Profile
             .ForMember(dest => dest.BHK, opt => opt.MapFrom(src => src.BHK))
             .ForMember(dest => dest.BuildArea, opt => opt.MapFrom(src => src.BuildArea))
             .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name))
-            .ForMember(dest => dest.ReadyToMove, opt => opt.MapFrom(src => src.ReadyToMove));
+            .ForMember(dest => dest.ReadyToMove, opt => opt.MapFrom(src => src.ReadyToMove))
+            .ForMember(dest => dest.EstPossessionOn, opt => opt.MapFrom(src => src.EstPossessionOn));
 
         CreateMap<Property, PropertyDetailDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -27,6 +28,7 @@ public class PropertyProfile : Profile
             .ForMember(dest => dest.BHK, opt => opt.MapFrom(src => src.BHK))
             .ForMember(dest => dest.BuildArea, opt => opt.MapFrom(src => src.BuildArea))
             .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name))
-            .ForMember(dest => dest.ReadyToMove, opt => opt.MapFrom(src => src.ReadyToMove));
+            .ForMember(dest => dest.ReadyToMove, opt => opt.MapFrom(src => src.ReadyToMove))
+            .ForMember(dest => dest.EstPossessionOn, opt => opt.MapFrom(src => src.EstPossessionOn));
     }
 }
