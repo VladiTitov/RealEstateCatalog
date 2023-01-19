@@ -1,4 +1,4 @@
-namespace RealEstateCatalog.WebApi.Endpoints;
+namespace RealEstateCatalog.WebApi.Endpoints.City;
 
 internal static class CityEndpoints
 {

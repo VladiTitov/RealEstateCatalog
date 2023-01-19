@@ -22,9 +22,9 @@ public class PropertyRepository : BaseRepository<Property>, IPropertyRepository
     public async Task<List<Property>> GetPropertyListBySellRentAsync(int sellRent, CancellationToken cancellationToken = default)
     {
         return await _dbContext.Set<Property>()
-            .Include(i=>i.PropertyType)
-            .Include(i=>i.FurnishingType)
-            .Include(i=>i.City)
+            .Include(i => i.PropertyType)
+            .Include(i => i.FurnishingType)
+            .Include(i => i.City)
             .Where(i => i.SellRent.Equals(sellRent))
             .ToListAsync(cancellationToken);
     }

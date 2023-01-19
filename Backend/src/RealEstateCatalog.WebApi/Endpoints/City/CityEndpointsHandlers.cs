@@ -1,7 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 
-namespace RealEstateCatalog.WebApi.Endpoints;
+namespace RealEstateCatalog.WebApi.Endpoints.City;
 
 internal static class CityEndpointsHandlers
 {
@@ -37,13 +37,7 @@ internal static class CityEndpointsHandlers
         IUnitOfWork unitOfWork,
         CancellationToken cancellationToken = default)
     {
-        var city = new City { 
-            Name = cityName,
-            LastUpdatedBy = 1,
-            LastUpdatedOn = DateTime.Now
-        };
-
-        var response = unitOfWork.CityRepository.Create(city);
+        var response = unitOfWork.CityRepository.Create(cityName);
         await unitOfWork.SaveAsync(cancellationToken);
         return response is null
             ? Results.BadRequest()

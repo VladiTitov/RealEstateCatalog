@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace RealEstateCatalog.WebApi.Endpoints;
+namespace RealEstateCatalog.WebApi.Endpoints.Property;
 
 internal static class PropertyEndpointsHandlers
 {
