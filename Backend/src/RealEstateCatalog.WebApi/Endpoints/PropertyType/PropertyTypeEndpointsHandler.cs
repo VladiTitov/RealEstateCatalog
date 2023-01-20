@@ -2,7 +2,7 @@
 
 namespace RealEstateCatalog.WebApi.Endpoints.PropertyType;
 
-internal class PropertyTypeEndpointsHandler
+internal static class PropertyTypeEndpointsHandler
 {
     internal static async Task<IResult> GetPropertyTypeList(
         IUnitOfWork unitOfWork,

@@ -5,7 +5,6 @@ namespace RealEstateCatalog.WebApi.Endpoints.City;
 
 internal static class CityEndpointsHandlers
 {
-    [Authorize]
     internal static async Task<IResult> GetAllAsync(
         IMapper mapper,
         IUnitOfWork unitOfWork,
@@ -15,7 +14,7 @@ internal static class CityEndpointsHandlers
 
         return response is null || !response.Any()
             ? Results.NoContent()
-            : Results.Ok(mapper.Map<IReadOnlyList<CityDto>>(response));
+            : Results.Ok(mapper.Map<IReadOnlyList<KeyValuePairDto>>(response));
     }
 
     internal static async Task<IResult> GetByIdAsync(
