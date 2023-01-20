@@ -5,6 +5,7 @@ import { map } from 'rxjs';
 import { ICity } from '../model/ICity.Interface';
 import { Property } from '../model/Property';
 import { environment } from 'src/environments/environment';
+import { IKeyValuePair } from '../model/IKeyValuePair';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,20 @@ export class HousingService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCities() : Observable<ICity[]>{
-    return this.http.get<ICity[]>(this.baseUrl + '/api/city');
+  getAllCities() : Observable<IKeyValuePair[]>{
+    return this.http.get<IKeyValuePair[]>(this.baseUrl + '/city');
   }
 
   getProperty(id: number) {
     return this.http.get<Property>(this.baseUrl + '/property/detail/' + id?.toString());
+  }
+
+  getFurnishingTypes() : Observable<IKeyValuePair[]> {
+    return this.http.get<IKeyValuePair[]>(this.baseUrl + '/furnishingtype/list');
+  }
+
+  getPropertyTypes() : Observable<IKeyValuePair[]> {
+    return this.http.get<IKeyValuePair[]>(this.baseUrl + '/propertytype/list');
   }
 
   getAllProperties(SellRent?: number) : Observable<Property[]> {

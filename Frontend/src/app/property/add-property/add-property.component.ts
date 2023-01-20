@@ -7,6 +7,7 @@ import { ICity } from 'src/app/model/ICity.Interface';
 import { Property } from 'src/app/model/Property';
 import { HousingService } from 'src/app/services/housing.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
+import { IKeyValuePair } from 'src/app/model/IKeyValuePair';
 
 @Component({
   selector: 'app-add-property',
@@ -34,8 +35,8 @@ export class AddPropertyComponent implements OnInit {
     estPossessionOn: new Date
   };
 
-  propertyTypes: Array<string> = ['House', 'Apartment', 'Duplex'];
-  furnishTypes: Array<string> = ['Fully', 'Semi', 'Unfurnished'];
+  propertyTypes: IKeyValuePair[];
+  furnishTypes: IKeyValuePair[];
   moveTypes: Array<string> = ['East', 'West', 'South', 'North'];
   cityList: Array<ICity>;
 
@@ -49,7 +50,14 @@ export class AddPropertyComponent implements OnInit {
     this.CreateAddPropertyForm();
     this.housingService.getAllCities().subscribe(data => {
       this.cityList = data;
-      console.log(data);
+    });
+
+    this.housingService.getPropertyTypes().subscribe(data => {
+      this.propertyTypes = data;
+    });
+
+    this.housingService.getFurnishingTypes().subscribe(data => {
+      this.furnishTypes = data;
     });
   }
 
@@ -78,7 +86,7 @@ export class AddPropertyComponent implements OnInit {
       }),
       OtherInfo: this.fb.group({
         ReadyToMove: [null, Validators.required],
-        ProcessionOn: [null],
+        PossessionOn: [null],
         AOP: [null],
         Gated: [null],
         MainEntrance: [null],
@@ -268,5 +276,10 @@ export class AddPropertyComponent implements OnInit {
     if (isCurrentTabValid) {
       this.formTabs.tabs[tabId].active = true;
     }
+  }
+
+  convertToDate(value: string) : Date {
+    if (value) return new Date(value);
+    return new Date();
   }
 }
