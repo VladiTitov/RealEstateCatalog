@@ -12,6 +12,10 @@ internal static class PropertyEndpoints
             pattern: "api/property/detail/{id}",
             handler: PropertyEndpointsHandlers.GetPropertyDetail)
             .WithName("GetPropertyDetail");
+        app.MapPost(
+            pattern: "api/property",
+            handler: PropertyEndpointsHandlers.CreateProperty)
+            .WithName("CreateProperty");
         return app;
     }
 }
