@@ -1,4 +1,4 @@
-﻿namespace RealEstateCatalog.WebApi.Endpoints.Property;
+﻿ namespace RealEstateCatalog.WebApi.Endpoints.Property;
 
 internal static class PropertyEndpoints
 {
@@ -13,7 +13,7 @@ internal static class PropertyEndpoints
             handler: PropertyEndpointsHandlers.GetPropertyDetail)
             .WithName("GetPropertyDetail");
         app.MapPost(
-            pattern: "api/property",
+            pattern: "api/property/add",
             handler: PropertyEndpointsHandlers.CreateProperty)
             .WithName("CreateProperty");
         return app;

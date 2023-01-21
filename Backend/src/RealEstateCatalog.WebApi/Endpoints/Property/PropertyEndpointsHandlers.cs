@@ -35,7 +35,6 @@ internal static class PropertyEndpointsHandlers
         CancellationToken cancellationToken = default)
     {
         var property = mapper.Map<Core.Domain.Models.Property>(propertyDto);
-        property.Id = 1;
         property.PostedBy = 1;
         property.LastUpdatedBy = 1;
         var result = unitOfWork.PropertyRepository.Create(property);

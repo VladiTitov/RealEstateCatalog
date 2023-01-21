@@ -29,7 +29,8 @@ export class PropertyDatailComponent implements OnInit {
         this.property = data['prp'];
     });
 
-    this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn);
+    let date = new Date(this.property.estPossessionOn);
+    this.property.age = this.housingService.getPropertyAge(date);
 
     this.galleryOptions = [
       {
