@@ -1,11 +1,10 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 
-namespace RealEstateCatalog.WebApi.Endpoints;
+namespace RealEstateCatalog.WebApi.Endpoints.City;
 
 internal static class CityEndpointsHandlers
 {
-    [Authorize]
     internal static async Task<IResult> GetAllAsync(
         IMapper mapper,
         IUnitOfWork unitOfWork,
@@ -15,7 +14,7 @@ internal static class CityEndpointsHandlers
 
         return response is null || !response.Any()
             ? Results.NoContent()
-            : Results.Ok(mapper.Map<IReadOnlyList<CityDto>>(response));
+            : Results.Ok(mapper.Map<IReadOnlyList<KeyValuePairDto>>(response));
     }
 
     internal static async Task<IResult> GetByIdAsync(
@@ -37,13 +36,7 @@ internal static class CityEndpointsHandlers
         IUnitOfWork unitOfWork,
         CancellationToken cancellationToken = default)
     {
-        var city = new City { 
-            Name = cityName,
-            LastUpdatedBy = 1,
-            LastUpdatedOn = DateTime.Now
-        };
-
-        var response = unitOfWork.CityRepository.Create(city);
+        var response = unitOfWork.CityRepository.Create(cityName);
         await unitOfWork.SaveAsync(cancellationToken);
         return response is null
             ? Results.BadRequest()

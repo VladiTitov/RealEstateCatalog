@@ -1,4 +1,4 @@
-﻿namespace RealEstateCatalog.Core.Application.Interfaces;
+﻿namespace RealEstateCatalog.Core.Application.Interfaces.Repositories;
 
 public interface IPropertyRepository : IBaseRepository<Property>
 {

@@ -30,5 +30,7 @@ public class PropertyProfile : Profile
             .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City.Name))
             .ForMember(dest => dest.ReadyToMove, opt => opt.MapFrom(src => src.ReadyToMove))
             .ForMember(dest => dest.EstPossessionOn, opt => opt.MapFrom(src => src.EstPossessionOn));
+
+        CreateMap<Property, PropertyDto>().ReverseMap();
     }
 }

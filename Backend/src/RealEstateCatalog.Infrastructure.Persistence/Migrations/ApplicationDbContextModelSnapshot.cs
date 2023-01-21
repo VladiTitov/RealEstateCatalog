@@ -41,7 +41,7 @@ namespace RealEstateCatalog.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("RealEstateCatalog.Core.Domain.Models.FurnishingType", b =>
@@ -64,7 +64,7 @@ namespace RealEstateCatalog.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FurnishingTypes");
+                    b.ToTable("FurnishingTypes", (string)null);
                 });
 
             modelBuilder.Entity("RealEstateCatalog.Core.Domain.Models.Photo", b =>
@@ -94,7 +94,7 @@ namespace RealEstateCatalog.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", (string)null);
                 });
 
             modelBuilder.Entity("RealEstateCatalog.Core.Domain.Models.Property", b =>
@@ -190,7 +190,7 @@ namespace RealEstateCatalog.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("PropertyTypeId");
 
-                    b.ToTable("Properties");
+                    b.ToTable("Properties", (string)null);
                 });
 
             modelBuilder.Entity("RealEstateCatalog.Core.Domain.Models.PropertyType", b =>
@@ -212,7 +212,7 @@ namespace RealEstateCatalog.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PropertyTypes");
+                    b.ToTable("PropertyTypes", (string)null);
                 });
 
             modelBuilder.Entity("RealEstateCatalog.Core.Domain.Models.User", b =>
@@ -240,7 +240,7 @@ namespace RealEstateCatalog.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("RealEstateCatalog.Core.Domain.Models.Photo", b =>

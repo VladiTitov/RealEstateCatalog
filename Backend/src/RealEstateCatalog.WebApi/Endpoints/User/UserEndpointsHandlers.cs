@@ -3,7 +3,7 @@ using FluentValidation;
 using RealEstateCatalog.WebApi.Errors;
 using RealEstateCatalog.WebApi.Exceptions;
 
-namespace RealEstateCatalog.WebApi.Endpoints;
+namespace RealEstateCatalog.WebApi.Endpoints.User;
 
 internal static class UserEndpointsHandlers
 {
@@ -19,7 +19,7 @@ internal static class UserEndpointsHandlers
         {
             return Results.ValidationProblem(validationResult.ToDictionary());
         }
-        
+
         var user = await unitOfWork.UserRepository.AuthenticateAsync(loginRequestDto, cancellationToken);
         return user is null
             ? throw new UnauthorizedException("Invalid Username or Password.")
