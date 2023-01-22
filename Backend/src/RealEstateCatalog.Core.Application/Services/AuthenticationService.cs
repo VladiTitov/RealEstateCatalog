@@ -24,6 +24,9 @@ public class AuthenticationService : IAuthenticationService
             Token = CreateJWT(user)
         };
 
+    public int GetUserId(ClaimsPrincipal user)
+        => int.Parse(user.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
     private string CreateJWT(User user)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_privateKey));

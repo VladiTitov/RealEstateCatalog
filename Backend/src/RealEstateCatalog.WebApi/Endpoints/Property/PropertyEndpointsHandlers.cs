@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace RealEstateCatalog.WebApi.Endpoints.Property;
 
@@ -28,15 +30,19 @@ internal static class PropertyEndpointsHandlers
             : Results.NoContent();
     }
 
+    [Authorize]
     internal static async Task<IResult> CreateProperty(
         PropertyDto propertyDto,
         IUnitOfWork unitOfWork,
         IMapper mapper,
+        ClaimsPrincipal user,
+        IAuthenticationService authenticationService,
         CancellationToken cancellationToken = default)
     {
         var property = mapper.Map<Core.Domain.Models.Property>(propertyDto);
-        property.PostedBy = 1;
-        property.LastUpdatedBy = 1;
+        var userId = authenticationService.GetUserId(user);
+        property.PostedBy = userId;
+        property.LastUpdatedBy = userId;
         var result = unitOfWork.PropertyRepository.Create(property);
         await unitOfWork.SaveAsync(cancellationToken);
 
