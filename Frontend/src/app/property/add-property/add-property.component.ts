@@ -76,9 +76,9 @@ export class AddPropertyComponent implements OnInit {
       PriceInfo: this.fb.group({
         Price: [null, Validators.required],
         BuildArea: [null, Validators.required],
-        CarpetArea: [null],
-        Security: [null],
-        Maintenance: [null]
+        CarpetArea: [0],
+        Security: [0],
+        Maintenance: [0]
       }),
       AddressInfo: this.fb.group({
         FloorNo: [null],
@@ -88,7 +88,7 @@ export class AddPropertyComponent implements OnInit {
       }),
       OtherInfo: this.fb.group({
         ReadyToMove: [null, Validators.required],
-        PossessionOn: [null],
+        PossessionOn: [null, Validators.required],
         AOP: [null],
         Gated: [null],
         MainEntrance: [null],
@@ -248,20 +248,21 @@ export class AddPropertyComponent implements OnInit {
     this.property.totalFloor = this.TotalFloor.value;
     this.property.address = this.Address.value;
     this.property.address2 = this.LandMark.value;
-    this.property.age = this.AOP.value;
-    this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.MainEntrance.value;
     this.property.description = this.Description.value;
     this.property.estPossessionOn =
-      this.datePipe.transform(this.PossessionOn.value, 'yyyy-MM-dd') || new Date().toDateString();
-
-    if (this.RTM.value === 'true') {
-      this.property.readyToMove = true;
-    } else {
-      this.property.readyToMove = false;
-    }
+    this.datePipe.transform(this.PossessionOn.value, 'yyyy-MM-dd') || new Date().toDateString();
+    this.property.readyToMove = this.getBooleanValue(this.RTM.value);
+    this.property.gated = this.getBooleanValue(this.Gated.value);
 }
 
+  getBooleanValue(value: string) : boolean {
+    if (value === 'true') {
+      return true;
+    } else {
+      return false;
+    }
+  }
   allTabsValid() : boolean {
     if (this.BasicInfo.invalid) {
       this.formTabs.tabs[0].active = true;

@@ -222,14 +222,18 @@
             <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
               <label *ngIf="propertyView.readyToMove">Establishment Date</label>
               <label *ngIf="!propertyView.readyToMove">Posession Date</label>
-              <input type="text" #PossessionOn
-                  class="form-control"
-                  formControlName="PossessionOn"
-                  placeholder="Select Date"
-                  (bsValueChange)="propertyView.estPossessionOn=PossessionOn.value"
-                  bsDatepicker
-                  [bsConfig]="{containerClass: 'theme-dark-blue',
-                  dateInputFormat: 'MMM DD, YYYY'}">
+              <input type="text" #PropPossessionOn
+                class="form-control"
+                formControlName="PossessionOn"
+                placeholder="Select Date"
+                (bsValueChange)="propertyView.estPossessionOn=PropPossessionOn.value"
+                bsDatepicker
+                [bsConfig]="{containerClass: 'theme-dark-blue',
+                dateInputFormat: 'MMM DD, YYYY'}">
+              <div class="error-block"
+                *ngIf="PossessionOn.invalid && (nextClicked || PossessionOn.touched)">
+                Please select establishment/posession date
+              </div>
             </div>
 
             <div class="form-group col-12">
@@ -237,21 +241,22 @@
               <div class="btn-group" formControlName="Gated" btnRadioGroup>
                 <label
                 class="btn btn-outline-primary m-1"
-                btnRadio=1 role="button" name="Gated">Yes</label>
+                btnRadio=true role="button" name="Gated">Yes</label>
                 <label
                 class="btn btn-outline-primary m-1"
-                btnRadio=2 role="button" name="Gated">No</label>
+                btnRadio=false role="button" name="Gated">No</label>
               </div>
             </div>
 
             <div class="form-group col-12">
-              <p>Ready to Move</p>
-              <div class="btn-group" btnRadioGroup>
+              <p>Main Entrance</p>
+              <div class="btn-group" btnRadioGroup
+              formControlName="MainEntrance">
                 <label
                 *ngFor="let mType of moveTypes"
                 class="btn btn-outline-primary m-1"
-                [btnRadio]= "mType" tabindex="0"
-                role="button" name="SellRent">{{mType}}</label>
+                [btnRadio]="mType" tabindex="0"
+                role="button" name="MainEntrance">{{mType}}</label>
               </div>
             </div>
 
