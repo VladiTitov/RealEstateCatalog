@@ -49,7 +49,7 @@ export class AddPropertyComponent implements OnInit {
     private alertify: AlertifyService) { }
 
   ngOnInit() {
-    if (!localStorage.getItem('userName')) {
+    if (!localStorage.getItem('username')) {
       this.alertify.onError('You must be logged in to add a property');
       this.router.navigate(['/user-login']);
     }
@@ -86,8 +86,8 @@ export class AddPropertyComponent implements OnInit {
         Maintenance: [0]
       }),
       AddressInfo: this.fb.group({
-        FloorNo: [null],
-        TotalFloor: [null],
+        FloorNo: [0],
+        TotalFloor: [0],
         Address: [null, Validators.required],
         LandMark: [null]
       }),
