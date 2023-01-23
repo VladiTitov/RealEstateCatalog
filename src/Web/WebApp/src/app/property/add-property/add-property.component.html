@@ -1,0 +1,299 @@
+<div class="row mb-5">
+  <div class="col-8 shadow-lg p-0 bg-white">
+    <div class="card">
+      <div class="card-header">
+      <h3>List your Property</h3>
+      </div>
+      <div class="card-body">
+    <form (ngSubmit)="onSubmit()" [formGroup]="addPropertyForm">
+      <div class="tab-panel">
+        <tabset class="member-tabset" #formTabs>
+          <tab heading="Basic Info" formGroupName="BasicInfo">
+            <div class="form-group col-12">
+              <p>I want to</p>
+              <div class="btn-group"
+              btnRadioGroup formControlName="SellRent">
+                <label class="btn btn-outline-primary m-1" btnRadio=1
+                role="button" name="SellRent">Sell</label>
+                <label class="btn btn-outline-primary m-1" btnRadio=2
+                role="button" name="SellRent">Rent</label>
+              </div>
+              <div class="error-block"  *ngIf="SellRent.invalid && nextClicked">
+                Please select Sell or Rent
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <p>BHK</p>
+              <div class="btn-group" btnRadioGroup
+              formControlName="BHK"
+              name="BHK">
+                <label
+                  *ngFor="let bhk of [1,2,3,4]"
+                  class="btn btn-outline-primary mr-2"
+                  [btnRadio]="bhk.toString()" tabindex="0" role="button"
+                  (click)="propertyView.bhk=bhk"
+                  name="BHK">
+                  {{bhk}}
+                </label>
+              </div>
+              <div class="error-block" *ngIf="BHK.invalid && nextClicked">
+                Please select BHK
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <p>Property Type</p>
+              <div class="btn-group" btnRadioGroup
+              formControlName="PType">
+                <label
+                  *ngFor="let propertyType of propertyTypes"
+                  class="btn btn-outline-primary m-1"
+                  [btnRadio]="propertyType.id.toString()" tabindex="0"
+                  (click)="propertyView.propertyType=propertyType.name"
+                  role="button" name="PropType">
+                  {{propertyType.name}}
+                </label>
+              </div>
+              <div class="error-block"
+              *ngIf="PType.invalid && nextClicked">
+                Please select property type
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <p>Furnishing Type</p>
+              <div class="btn-group" btnRadioGroup
+              formControlName="FType">
+                <label
+                  *ngFor="let furnishType of furnishTypes"
+                  class="btn btn-outline-primary m-1"
+                  [btnRadio]="furnishType.id.toString()" tabindex="0"
+                  (click)="propertyView.furnishingType=furnishType.name"
+                  role="button" name="FurType">
+                  {{furnishType.name}}
+                </label>
+              </div>
+              <div class="error-block" *ngIf="FType.invalid && nextClicked">
+                Please select furnishing type
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <label>in Building/Society/Project</label>
+              <input type="text" class="form-control" #propName
+              (keyup)="propertyView.name=propName.value"
+              minlength="5" formControlName="Name">
+              <div class="error-block"
+              *ngIf="Name.invalid && (nextClicked || Name.touched)">
+                Please select building, society or project name
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <label>City</label>
+              <select #CityGroup
+              (change)="propertyView.city=CityGroup.options[CityGroup.options.selectedIndex].text"
+              class="form-control"
+              formControlName="City">
+                <option value="">--Select City--</option>
+                <option *ngFor="let city of cityList" value={{city.id}}>{{city.name}}</option>
+              </select>
+              <div class="error-block" *ngIf="City.invalid && (nextClicked || City.touched)">
+                Please select city
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <button type="button" class="btn btn-primary"
+              (click)="selectTab(1, BasicInfo.valid)" >Next</button>
+            </div>
+
+          </tab>
+          <tab heading="Pricing and Area" formGroupName="PriceInfo">
+            <div class="form-group col-12">
+              <label *ngIf="SellRent.value==1">Price (in USD)</label>
+              <label *ngIf="SellRent.value==2">Rent (in USD)</label>
+              <input type="text" class="form-control" #propPrice
+              (keyup)="propertyView.price=+propPrice.value"
+              formControlName="Price">
+              <div class="error-block"
+              *ngIf="Price.invalid && (nextClicked || Price.touched)">
+                Please select
+                <span
+                *ngIf="SellRent.value==1;else ShowRent">price</span>
+                <ng-template #ShowRent>rent</ng-template>
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <label>Security (in USD)</label>
+              <input type="text"
+              formControlName="Security"
+              class="form-control">
+            </div>
+
+            <div class="form-group col-12">
+              <label>Maintenance (in USD)</label>
+              <input type="text"
+              formControlName="Maintenance"
+              class="form-control">
+            </div>
+
+            <div class="form-group col-12">
+              <label>Build Area (in Sqr Feet)</label>
+              <input type="text" class="form-control"
+              formControlName="BuildArea" #propBuildArea
+              (keyup)="propertyView.buildArea=+propBuildArea.value">
+              <div class="error-block"
+              *ngIf="BuildArea.invalid && (nextClicked || BuildArea.touched)">
+                Please select Build Price
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <label>Carpet Area(in Sqr Feet)</label>
+              <input type="text" class="form-control">
+            </div>
+
+            <button (click)="selectTab(2, PriceInfo.valid)" type="button" class="btn btn-primary">Next</button>
+            <button (click)="selectTab(0, PriceInfo.valid)" type="button" class="btn btn-primary">Back</button>
+          </tab>
+          <tab heading="Address" formGroupName="AddressInfo">
+            <div class="form-group col-12">
+              <label>Floor</label>
+              <input type="text"
+              formControlName="FloorNo"
+              class="form-control">
+            </div>
+
+            <div class="form-group col-12">
+              <label>Total Floor</label>
+              <input type="text"
+              formControlName="TotalFloor"
+              class="form-control">
+            </div>
+
+            <div class="form-group col-12">
+              <label>Address</label>
+              <input type="text"
+              class="form-control"
+              formControlName="Address">
+              <div class="error-block"
+              *ngIf="Address.invalid && (nextClicked || Address.touched)">
+                Please select address
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <label>Landmark</label>
+              <input type="text"
+              formControlName="LandMark"
+              class="form-control">
+            </div>
+
+            <button (click)="selectTab(3, AddressInfo.valid)" type="button" class="btn btn-primary">Next</button>
+            <button (click)="selectTab(1, AddressInfo.valid)" type="button" class="btn btn-primary">Back</button>
+          </tab>
+          <tab heading="Other details" formGroupName="OtherInfo">
+            <div class="form-group col-12">
+              <p>Ready to move</p>
+              <div class="btn-group" btnRadioGroup
+              formControlName="ReadyToMove">
+                <label
+                class="btn btn-outline-primary m-1"
+                btnRadio=true tabindex="0"
+                role="button"
+                (click)="propertyView.readyToMove=true"
+                name="ReadyToMove">Yes</label>
+                <label
+                class="btn btn-outline-primary m-1"
+                btnRadio=false tabindex="0"
+                role="button"
+                (click)="propertyView.readyToMove=false"
+                name="ReadyToMove">No</label>
+              </div>
+              <div class="error-block"
+              *ngIf="RTM.invalid && nextClicked">
+                Please select ready to move type
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
+              <label *ngIf="propertyView.readyToMove">Establishment Date</label>
+              <label *ngIf="!propertyView.readyToMove">Posession Date</label>
+              <input type="text" #PropPossessionOn
+                class="form-control"
+                formControlName="PossessionOn"
+                placeholder="Select Date"
+                (bsValueChange)="propertyView.estPossessionOn=PropPossessionOn.value"
+                bsDatepicker
+                [bsConfig]="{containerClass: 'theme-dark-blue',
+                dateInputFormat: 'MMM DD, YYYY'}">
+              <div class="error-block"
+                *ngIf="PossessionOn.invalid && (nextClicked || PossessionOn.touched)">
+                Please select establishment/posession date
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <p>Gated Community</p>
+              <div class="btn-group" formControlName="Gated" btnRadioGroup>
+                <label
+                class="btn btn-outline-primary m-1"
+                btnRadio=true role="button" name="Gated">Yes</label>
+                <label
+                class="btn btn-outline-primary m-1"
+                btnRadio=false role="button" name="Gated">No</label>
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <p>Main Entrance</p>
+              <div class="btn-group" btnRadioGroup
+              formControlName="MainEntrance">
+                <label
+                *ngFor="let mType of moveTypes"
+                class="btn btn-outline-primary m-1"
+                [btnRadio]="mType" tabindex="0"
+                role="button" name="MainEntrance">{{mType}}</label>
+              </div>
+            </div>
+
+            <div class="form-group col-12">
+              <label>Description</label>
+              <textarea type="text"
+              formControlName="Description"
+              class="form-control"
+              rows="6"></textarea>
+            </div>
+
+            <button (click)="selectTab(4, OtherInfo.valid)" type="button" class="btn btn-primary">Next</button>
+            <button (click)="selectTab(2, OtherInfo.valid)" type="button" class="btn btn-primary">Back</button>
+          </tab>
+          <tab heading="Photos">
+            <div class="form-group col-12">
+              <div class="photo-control">
+                  <button class="mt-5" type="button">Upload</button> <br>
+                  This is under construction
+              </div>
+            </div>
+            <button (click)="selectTab(3, true)" type="button" class="btn btn-primary">Back</button>
+            <button type="reset" class="btn btn-primary">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </tab>
+        </tabset>
+      </div>
+    </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card-header">
+      <h3>Your Property Preview</h3>
+    </div>
+      <div class="shadow-lg p-3 bg-white">
+        <app-property-card [property]="propertyView" [hideIcons]="true"></app-property-card>
+      </div>
+  </div>
+</div>
